@@ -4,12 +4,10 @@ import { useAuthContext } from '../../context/AuthContext';
 import useGetConversation from '../../zustand/useGetConversation'
 import Messages from './Messages'; // Assuming Messages component is imported correctly
 import MessageInput from './MessageInput'; // Assuming MessageInput component is imported correctly
-import { useGroupContext } from '../../context/GroupContext'; // Import GroupContext for managing group state
 
 const MessageContainer = () => {
   const { authUser } = useAuthContext()
   const { selectedConversation, setSelectedConversation } = useGetConversation();
-  const { selectedGroup } = useGroupContext(); // Get selected group from context
 
   useEffect(() => {
     setSelectedConversation(null); // Reset selected conversation when component mounts
