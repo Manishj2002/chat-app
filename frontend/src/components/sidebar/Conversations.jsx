@@ -1,31 +1,22 @@
-import { getRandomEmoji } from "../../../utils/emoji";
-import useConversation from "../../hooks/useConversation";
+import useConversation from '../../hooks/useConversation.js'
+import { getRandomEmoji } from "../../../utils/emoji.js";
 import Conversation from "./Conversation";
 
 const Conversations = () => {
-  const { loading, conversations } = useConversation();
+	const { loading, conversations } = useConversation();
+	return (
+		<div className='py-2 flex flex-col overflow-auto'>
+			{conversations.map((conversation, idx) => (
+				<Conversation
+					key={conversation._id}
+					conversation={conversation}
+					emoji={getRandomEmoji()}
+					lastIdx={idx === conversations.length - 1}
+				/>
+			))}
 
-  if (!Array.isArray(conversations)) {
-    return <div>Error: Failed to load conversations</div>;
-  }
-
-  return (
-    <div className='py-2 flex flex-col overflow-auto'>
-      {conversations.length > 0 ? (
-        conversations.map((conversation, idx) => (
-          <Conversation
-            key={conversation._id}
-            conversation={conversation}
-            lastIdx={idx === conversations.length - 1}
-            emoji={getRandomEmoji()}
-          />
-        ))
-      ) : (
-        <div>No conversations available</div>
-      )}
-      {loading ? <span className='loading loading-spinner mx-auto'></span> : null}
-    </div>
-  );
+			{loading ? <span className='loading loading-spinner mx-auto'></span> : null}
+		</div>
+	);
 };
-
 export default Conversations;
